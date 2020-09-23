@@ -15,8 +15,6 @@ def keyboard_gen(actions):
     if len(actions) != 0:
         keyboard = []
         for item in actions:
-            print(item["value"])
-            print(item["next_step_id"])
             keyboard.append([InlineKeyboardButton("🔸 " + item["value"], callback_data = item["next_step_id"])])
         return keyboard
 
@@ -47,20 +45,15 @@ def search(update, context):
 def error_code(update, context):
     error_code = update.message.text
     lookup = requests.get("http://demo.knowai.it:10000/core/lookup/code/{}".format(error_code)).json()
-    print(lookup)
-    print(lookup["status"])
     if lookup["status"] == "success":
         tree_id = lookup["tree_id"]
         context.user_data["tree_id"] = tree_id
         root = requests.get("http://demo.knowai.it:10000/core/visit/root?tree_id={}".format(tree_id)).json()
-        print(root)
         if root["status"] == "success":
             root = root["root"]
             actions = requests.get("http://demo.knowai.it:10000/core/visit/step?tree_id={}&step_id={}".format(tree_id,root)).json()
-            print(actions)
             if len(actions["actions"]) != 0:
-                keyboard = keyboard_gen(actions["actions"]) #funzione che mi genera la tastiera di telegram
-                print(keyboard)
+                keyboard = keyboard_gen(actions["actions"])
                 msg = update.message.reply_text("➡️ {}".format(html_content(actions["value"])), reply_markup = InlineKeyboardMarkup(keyboard))
                 context.user_data["msg"] = msg.message_id
                 return ACTIONS
