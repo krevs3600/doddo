@@ -105,7 +105,7 @@ def cancel(update, context):
 
 
 def main():
-    updater = Updater(token = "1059982021:AAE80kWJhDj5oBBbOc0nMhoIyRcLdeeLwzk", use_context=True, request_kwargs={'read_timeout': 6, 'connect_timeout': 7})
+    updater = Updater(token = "TOKEN", use_context=True, request_kwargs={'read_timeout': 6, 'connect_timeout': 7})
     
     conv_handler = ConversationHandler(
         entry_points = [CallbackQueryHandler(search)],
