@@ -1,0 +1,43 @@
+step node associato a varie azioni
+step node -> action nodes
+
+root
+|____| |____| |____|
+
+scelte multiple -> stati -> risoluzione del problema
+
+{}info servizio rest
+servizio rest, core interno, /info size repository
+
+{}lookup /code: dato un codice mi ritorna l'id dell'albero
+
+
+l'utente non sa l'id dell'albero, il dato che passo è il codice errore (in futuro sarà la descrizione del problema)
+
+l'unico entry point è il lookup_code
+1.
+{}/core/lookup/code/<error code>
+ GET https://server.com/core/.....
+json:{
+status
+tree id
+}
+
+2.
+root
+core/visit/root?tree_id
+get_root_step_id
+{
+status
+root
+}
+
+core/visit/step?tree_id=...&step_id
+{
+step_id
+value html
+actions -> vettore di altri oggetti dove ogni oggetto continete id, stringa sul bottone e id del successivo
+}
+
+
+
